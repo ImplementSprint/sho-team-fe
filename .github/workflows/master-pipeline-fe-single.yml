@@ -65,9 +65,9 @@ jobs:
               - 'package.json'
               - 'sonar-project.properties'
 
-  # ══════════════════════════════════════════════════════════════════
+ 
   # Resolve FE Single Configuration
-  # ══════════════════════════════════════════════════════════════════
+
   systems-config:
     name: "Resolve FE Single Configuration"
     runs-on: ubuntu-latest
@@ -117,9 +117,15 @@ jobs:
     secrets: inherit
 
   sonarcloud:
+
     name: "SonarCloud — Analysis"
     needs: [frontend, systems-config]
     if: always() && needs.frontend.result != 'cancelled'
+
+    name: "SonarCloud Analysis"
+    needs: [frontend, systems-config]
+    if: always() && needs.frontend.result != 'cancelled' && fromJson(needs.active-systems.outputs.active_count) > 0
+
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -138,6 +144,10 @@ jobs:
             -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
 
+
+
+
+            
 
   # ══════════════════════════════════════════════════════════════════
   # Version Tag — TEST
