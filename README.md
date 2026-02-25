@@ -1,5 +1,5 @@
 # Call_Template_Single (Next.js)
- 
+
 Minimal Next.js + TypeScript project that **calls reusable CI/CD workflows** from the `CICD-Fe_Single-test` repository.
 
 ## Local Commands
