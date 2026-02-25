@@ -53,3 +53,5 @@ In `.github/workflows/master-pipeline-fe-single.yml`, replace `OWNER/CICD-Fe_Sin
 
 - Unit tests generate `coverage/coverage-summary.json` for the test workflow.
 - `Dockerfile` is included so the existing Docker build workflow on `main` can run.
+
+this is for testing purposes only
