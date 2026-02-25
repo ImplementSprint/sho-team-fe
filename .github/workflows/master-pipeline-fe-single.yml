@@ -1,5 +1,5 @@
-# Template: FE Multi Pipeline Caller (for other repositories)
-# Copy this file to: .github/workflows/master-pipeline-fe-multi.yml in the target repo.
+# Template: FE Single Pipeline Caller (for other repositories)
+# Copy this file to: .github/workflows/master-pipeline-fe-single.yml in the target repo.
 #
 # IMPORTANT:
 # - Update the `uses` repository/ref below to point to your central pipeline repo.
@@ -34,22 +34,15 @@ permissions:
   security-events: write
 
 concurrency:
-  group: master-pipeline-fe-multi-caller-${{ github.ref }}
+  group: master-pipeline-fe-single-caller-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  skip-if-central-workflow:
-    if: ${{ github.repository == 'ImplementSprint/central-workflow' }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Skip workflow in central-workflow repo
-        run: echo "This workflow is not intended to run in the central-workflow repository."
-
   master-orchestrator:
-    if: ${{ github.repository != 'ImplementSprint/central-workflow' }}
-    name: "Call Master Orchestrator"
-    uses: ImplementSprint/central-workflow/.github/workflows/master-pipeline-fe-multi.yml@main
+    name: "Call Unified Master Orchestrator"
+    uses: ImplementSprint/CICD-Fe-Multi/.github/workflows/master-pipeline-fe-multi.yml@main
     with:
+      pipeline_mode: single
       run_deploy: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.run_deploy == 'true' }}
       run_promotion: ${{ github.event_name != 'workflow_dispatch' || github.event.inputs.run_promotion == 'true' }}
       dry_run: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.dry_run == 'true' }}
