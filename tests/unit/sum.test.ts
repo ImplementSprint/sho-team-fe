@@ -1,5 +1,3 @@
-import { describe, expect, it } from "vitest";
-
 import { sum } from "../../src/lib/sum";
 
 describe("sum", () => {
