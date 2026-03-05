@@ -1,15 +1,18 @@
 {
-  "name": "cicd-fe-single",
+  "name": "servease",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "servease",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run --coverage",
+    "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
-    "test:e2e": "node tests/e2e/runner.mjs"
+    "test:e2e": "tsx tests/e2e/selenium-e2e.ts",
+    "test:e2e:firefox": "tsx tests/e2e/selenium-e2e.ts --browser=firefox",
+    "test:k6": "k6 run tests/performance/k6-global.ts"
   },
   "dependencies": {
     "next": "16.1.6",
@@ -25,6 +28,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.1.6",
     "selenium-webdriver": "^4.41.0",
+     "tsx": "^4.21.0",
     "tailwindcss": "^4",
     "typescript": "^5",
     "vitest": "^4.0.18"
